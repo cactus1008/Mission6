@@ -27,6 +27,7 @@ namespace Mission6.Controllers
         [HttpGet]
         public IActionResult EnterMovie()
         {
+            ViewBag.Categories = _context.Categories.ToList();
             return View();
         }
         [HttpPost]
@@ -35,6 +36,7 @@ namespace Mission6.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.Categories = _context.Categories.ToList();
                 return View(response);
             }
 

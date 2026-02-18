@@ -11,8 +11,13 @@
 
 <form method="post">
     @* Form to enter a movie *@
-    <label asp-for="Category">Category:</label>
-    <input asp-for="Category" />
+    <select asp-for="CategoryId">
+        <option value="">Select a Category</option>
+        @foreach (Category c in ViewBag.Categories)
+        {
+            <option value="@c.CategoryId">@c.CategoryName</option>
+        }
+    </select>
     <br />
     @* Class for coloring *@
     <span class="req-badge">Required</span>
