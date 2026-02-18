@@ -28,7 +28,7 @@ namespace Mission6.Controllers
         public IActionResult EnterMovie()
         {
             ViewBag.Categories = _context.Categories.ToList();
-            return View();
+            return View(new Movie());
         }
         [HttpPost]
         //make sure app doesnt crash
@@ -44,6 +44,44 @@ namespace Mission6.Controllers
             _context.SaveChanges();
 
             return View("Confirmation", response);
+        }
+        public IActionResult ViewMovies()
+        {
+            var movies = _context.Movies.Include(m => m.Category).OrderBy(x => x.Title).ToList();
+            return View(movies);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var recordToEdit = _context.Movies.Single(x => x.MovieId == id);
+
+            ViewBag.Categories = _context.Categories.ToList(); // Get list of majors from database to populate dropdown
+
+            return View("EnterMovie", recordToEdit);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Movie updatedInfo)
+        {
+            _context.Movies.Update(updatedInfo); // Update record in the database
+            _context.SaveChanges();
+            return RedirectToAction("ViewMovies");
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var recordToDelete = _context.Movies.Single(x => x.MovieId == id);
+            return View("Delete", recordToDelete);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Movie toDelete)
+        {
+            _context.Movies.Remove(toDelete); // Remove record from the database
+            _context.SaveChanges();
+            return RedirectToAction("ViewMovies");
         }
     }
 }

@@ -10,17 +10,21 @@ namespace Mission6.Models
         public int MovieId { get; set; } 
         [Required]
         [ForeignKey("CategoryId")]
-        public string CategoryId { get; set; }
+        public int CategoryId { get; set; }
+        public Category? Category { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
         public int Year { get; set; }
-        [Required]
-        public string Director { get; set; }
+        public string? Director { get; set; }
         [Required]
         public string Rating { get; set; }
-        public bool? Edited { get; set; }
-        public string? CopiedToPlex { get; set; }
+
+        [Required]
+        public bool Edited { get; set; }
+
+        [Required]
+        public bool CopiedToPlex { get; set; }
         [StringLength(25)]
         public string? Notes { get; set; }
     }

@@ -10,7 +10,11 @@
 <h1>Enter A Movie</h1>
 
 <form method="post">
+
+    <input type="hidden" asp-for="MovieId" />
+
     @* Form to enter a movie *@
+    <label asp-for="CategoryId">Category</label>
     <select asp-for="CategoryId">
         <option value="">Select a Category</option>
         @foreach (Category c in ViewBag.Categories)
@@ -51,7 +55,10 @@
     <br />
     @* Not Required *@
     <label asp-for="CopiedToPlex">Copied To Plex?</label>
-    <input asp-for="CopiedToPlex" />
+    <select asp-for="CopiedToPlex">
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+    </select>
     <br />
     @* Limit to 25 characters *@
     @* Not Required *@
@@ -60,4 +67,6 @@
     <br />
 
     <button type="submit">Submit Movie</button>
+
+    <div asp-validation-summary="All"></div>
 </form>
