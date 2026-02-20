@@ -9,12 +9,15 @@ namespace Mission6.Models
         [Required]
         public int MovieId { get; set; } 
         [Required]
+        // Throwing in our foreign key info
         [ForeignKey("CategoryId")]
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
+        // Make sure minimum year is 1888, the year of the first movie
+        [Range(1888, int.MaxValue, ErrorMessage = "Year must be 1888 or later.")]
         public int Year { get; set; }
         public string? Director { get; set; }
         [Required]

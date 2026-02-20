@@ -47,6 +47,7 @@ namespace Mission6.Controllers
         }
         public IActionResult ViewMovies()
         {
+            // Include the category info in the movies query so we can display it in the view
             var movies = _context.Movies.Include(m => m.Category).OrderBy(x => x.Title).ToList();
             return View(movies);
         }
@@ -54,6 +55,7 @@ namespace Mission6.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
+            // Grab the record from the database that matches the id passed in
             var recordToEdit = _context.Movies.Single(x => x.MovieId == id);
 
             ViewBag.Categories = _context.Categories.ToList(); // Get list of majors from database to populate dropdown
@@ -64,6 +66,12 @@ namespace Mission6.Controllers
         [HttpPost]
         public IActionResult Edit(Movie updatedInfo)
         {
+            // Check valitity of the form data
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Categories = _context.Categories.ToList();
+                return View("EnterMovie", updatedInfo);
+            }
             _context.Movies.Update(updatedInfo); // Update record in the database
             _context.SaveChanges();
             return RedirectToAction("ViewMovies");

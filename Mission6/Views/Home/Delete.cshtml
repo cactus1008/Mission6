@@ -9,9 +9,11 @@
 <h3>@Model.Title, directed by @Model.Director</h3>
 
 <form method="post">
-
+    @* Making sure we know which movie to delete by passing the ID as a hidden field *@
     <input type="hidden" asp-for="MovieId" />
 
     <button type="submit" class="btn btn-danger">Delete</button>
+
+    @* Exit button *@
     <a class="btn btn-info" asp-controller="Home" asp-action="ViewMovies">Cancel</a>
 </form>

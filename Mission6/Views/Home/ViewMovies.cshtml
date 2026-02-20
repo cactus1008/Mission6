@@ -6,6 +6,8 @@
 
 @model List<Movie>
 
+<h1>Movies List</h1>
+
 <table class="table table-bordered">
 
     <thead class="fw-bold">
@@ -25,6 +27,7 @@
     {
         <tbody>
             <tr>
+                @* gets the category name using the FK *@
                 <td>@x.Category.CategoryName</td>
                 <td>@x.Title</td>
                 <td>@x.Year</td>
@@ -34,6 +37,7 @@
                 <td>@x.CopiedToPlex</td>
                 <td>@x.Notes</td>
 
+                @* Edit and delete buttons passing movie ID *@
                 <td><a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-id="@x.MovieId">Edit</a></td>
                 <td><a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@x.MovieId">Delete</a></td>
             </tr>
