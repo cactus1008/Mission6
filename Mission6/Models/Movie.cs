@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Mission6.Models
 {
@@ -6,19 +7,27 @@ namespace Mission6.Models
     {
         [Key]
         [Required]
-        public int MovieID { get; set; } 
+        public int MovieId { get; set; } 
         [Required]
-        public string Category { get; set; }
+        // Throwing in our foreign key info
+        [ForeignKey("CategoryId")]
+        public int CategoryId { get; set; }
+        public Category? Category { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
+        // Make sure minimum year is 1888, the year of the first movie
+        [Range(1888, int.MaxValue, ErrorMessage = "Year must be 1888 or later.")]
         public int Year { get; set; }
-        [Required]
-        public string Director { get; set; }
+        public string? Director { get; set; }
         [Required]
         public string Rating { get; set; }
-        public bool? Edited { get; set; }
-        public string? LentTo { get; set; }
+
+        [Required]
+        public bool Edited { get; set; }
+
+        [Required]
+        public bool CopiedToPlex { get; set; }
         [StringLength(25)]
         public string? Notes { get; set; }
     }
